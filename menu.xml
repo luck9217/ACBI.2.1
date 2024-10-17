@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE menu SYSTEM "menu.dtd">
+<menu>
+    <item>
+        <pageName>Home</pageName>
+        <url>index.html</url>
+    </item>
+    <item>
+        <pageName>Products</pageName>
+        <url>products.html</url>
+    </item>
+    <item>
+        <pageName>About</pageName>
+        <url>about.html</url>
+    </item>
+    <item>
+        <pageName>Contact</pageName>
+        <url>contact.html</url>
+     </item>
+
+</menu>

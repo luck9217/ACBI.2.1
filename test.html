@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Menu with XML</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Website</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav" id="menuList"></ul>
+        </div>
+      </div>
+    </nav>
+
+    <script>
+      fetch("menu.xml")
+        .then((response) => response.text())
+        .then((xmlString) => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+          const menuList = document.getElementById("menuList");
+
+          const items = xmlDoc.getElementsByTagName("item");
+          for (let i = 0; i < items.length; i++) {
+            const pageName =
+              items[i].getElementsByTagName("pageName")[0].textContent;
+            const url = items[i].getElementsByTagName("url")[0].textContent;
+
+            const li = document.createElement("li");
+            li.classList.add("nav-item");
+
+            const a = document.createElement("a");
+            a.classList.add("nav-link");
+            a.setAttribute("href", url);
+            a.textContent = pageName;
+
+            li.appendChild(a);
+            menuList.appendChild(li);
+          }
+        })
+        .catch((error) => console.error("Error loading XML:", error));
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
